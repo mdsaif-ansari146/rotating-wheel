@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Infinite Rotate Logo with Background</title>
+  <title>Spin and Reset (CSS Only)</title>
   <style>
     body {
       display: flex;
@@ -11,7 +11,6 @@
       height: 100vh;
       margin: 0;
       background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center/cover;
-      font-family: sans-serif;
     }
 
     .logo {
@@ -25,8 +24,9 @@
         #34A853 275deg 360deg
       );
       position: relative;
-      transition: transform 3s ease-out;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transform: rotate(0deg);
+      animation: reset 2s ease-out forwards;
     }
 
     .logo::after {
@@ -41,35 +41,29 @@
     }
 
     @keyframes spin {
-      from {
+      0% {
         transform: rotate(0deg);
       }
-      to {
+      100% {
         transform: rotate(360deg);
       }
     }
 
-    .rotating {
+    @keyframes reset {
+      from {
+        transform: rotate(360deg);
+      }
+      to {
+        transform: rotate(0deg);
+      }
+    }
+
+    .logo:hover {
       animation: spin 2s linear infinite;
-      transition: none;
     }
   </style>
 </head>
 <body>
-  <div class="logo" id="logo"></div>
-
-  <script>
-    const logo = document.getElementById('logo');
-
-    logo.addEventListener('mouseenter', () => {
-      logo.classList.add('rotating');
-    });
-
-    logo.addEventListener('mouseleave', () => {
-      logo.classList.remove('rotating');
-      logo.style.transform = 'rotate(0deg)';
-      void logo.offsetWidth; // Trigger reflow
-    });
-  </script>
+  <div class="logo"></div>
 </body>
 </html>
