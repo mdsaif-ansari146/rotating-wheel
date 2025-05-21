@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Infinite Rotate Logo with Background</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center/cover;
+      font-family: sans-serif;
+    }
+
+    .logo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #4285F4 0deg 120deg,
+        #EA4335 120deg 210deg,
+        #FBBC05 210deg 275deg,
+        #34A853 275deg 360deg
+      );
+      position: relative;
+      transition: transform 3s ease-out;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      width: 50%;
+      height: 50%;
+      background: white;
+      border-radius: 50%;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .rotating {
+      animation: spin 2s linear infinite;
+      transition: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo" id="logo"></div>
+
+  <script>
+    const logo = document.getElementById('logo');
+
+    logo.addEventListener('mouseenter', () => {
+      logo.classList.add('rotating');
+    });
+
+    logo.addEventListener('mouseleave', () => {
+      logo.classList.remove('rotating');
+      logo.style.transform = 'rotate(0deg)';
+      void logo.offsetWidth; // Trigger reflow
+    });
+  </script>
+</body>
+</html>
